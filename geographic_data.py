@@ -1,3 +1,4 @@
+from revise import revise_table
 import time
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -5,12 +6,18 @@ from html_table_parser import parser_functions
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from tabulate import tabulate
 import collections
 collections.Callable = collections.abc.Callable
 
 
-def get_geographic_data(url):
+def scrapping(url):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    get_geographic_data(url, driver)
+    driver.quit()
+
+
+def get_geographic_data(url, driver):
 
     driver.get(url)
     time.sleep(3)
@@ -26,19 +33,7 @@ def get_geographic_data(url):
     for table in data:
         f_data = table.find('table')
         if f_data:
-            td_tags = soup.find_all('td')
-            for td_tag in td_tags:
-                if not td_tag.text.strip():
-                    td_tag.decompose()
             span_tags = f_data.find_all('span')
             for span_tag in span_tags:
                 if 'United States' in span_tag.text or 'Americas' in span_tag.text:
-                    list_data = parser_functions.make2d(f_data)
-                    for item in list_data:
-                        item = list(filter(None, item))
-                        t_data.append(item)
-
-    df = pd.DataFrame(t_data)
-    print(df)
-
-    driver.quit()
+                    revise_table(f_data)

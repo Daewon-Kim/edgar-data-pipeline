@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import xml.etree.ElementTree as ET
 from tabulate import tabulate
-from geographic_data import get_geographic_data
+from geographic_data import scrapping
 
 # 입력할 것은 찾고 싶은 단어의 리스트, ticker의 리스트
 # 반환은 회사 - 이름 - url
@@ -86,6 +86,7 @@ def get_filing_summary(num_list, cik_list):
                 name_list.append(
                     [short_name, f'{base_url}/{cik_list[i]}/{ac_num}/{html_file_name}'])
             result.append(name_list)
+
         else:
             print('error')
 
@@ -98,7 +99,7 @@ def finding(data_list, search_list):
         print(name_list[0])
         for data in name_list:
             if all(item in data[0].lower() for item in search_list):
-                print(get_geographic_data(data[1]))
+                scrapping(data[1])
 
 
 def get_data(ticker, search_words):
@@ -117,13 +118,10 @@ def get_data(ticker, search_words):
 
 
 # 지역별 매출은 _GEOKEYWORD, 제품별 매출은
-get_data(['msft', 'aapl'], _GEOKEYWORD)
+get_data(['msft', 'aapl', 'nvda', 'amzn', 'nflx'], _GEOKEYWORD)
 
 
 # 파라미터: 회사 ticker(list), 키워드(list)
 # 'msft', 'aapl', 'nvda', 'amzn', 'nflx'
 # get_data(['msft', 'aapl', 'nvda', 'amzn', 'nflx'],
 #          ['segment', 'information', 'tables'])
-
-# get_geographic_data(
-#     'https://www.sec.gov/Archives/edgar/data/0001045810/000104581024000029/R42.htm')
