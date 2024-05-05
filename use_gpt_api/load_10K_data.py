@@ -1,9 +1,9 @@
 import json
 
 # 파일 경로 
-appl_data_path = "C:\\Users\\김대원\\캡스톤 설계\\edgar-data-pipeline\\datasets\\EXTRACTED_FILINGS\\320193_10K_2022_0000320193-22-000108.json"
-msft_data_path = "C:\\Users\\김대원\\캡스톤 설계\\edgar-data-pipeline\\datasets\\EXTRACTED_FILINGS\\789019_10K_2022_0001564590-22-026876.json"
-amzn_data_path = "C:\\Users\\김대원\\캡스톤 설계\\edgar-data-pipeline\\datasets\\EXTRACTED_FILINGS\\1018724_10K_2022_0001018724-23-000004.json"
+appl_data_path = "APPLE_EXTRACTED_FILINGS.json file path"
+msft_data_path = "MICROSOFT_EXTRACTED_FILINGS.json file path"
+amzn_data_path = "AMAZON_EXTRACTED_FILINGS.json file path"
 
 
 # 기업의 10K 데이터 load
